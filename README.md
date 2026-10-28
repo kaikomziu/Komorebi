@@ -1,3 +1,14 @@
+> # ⚠️ このプロジェクトは **Hizashi（日差し）** に移行しました
+>
+> 同名の有名ソフトとぶつかるため、名前を **Hizashi** に変更し、新しいリポジトリに移しました。
+> **最新版・ダウンロード・サポートは、こちらをご利用ください:**
+> ### 👉 https://github.com/kaikomziu/hizashi
+>
+> このリポジトリ（旧名 Komorebi）は更新を終了し、アーカイブ（読み取り専用）にしています。
+>
+> **This project has moved to [Hizashi](https://github.com/kaikomziu/hizashi)** (renamed to avoid a name clash). This repository is archived and no longer maintained.
+
+---
 # Komorebi（木漏れ日）
 
 Windows 用の、自作のデスクトップブラウザです。中身は Chromium なので、たいていのサイトがそのまま表示できます。
