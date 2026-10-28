@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'none'; img-src * data:; style-src 'self' 'unsafe-inline'; script-src 'self';" />
+  <title>Komorebi Overlay</title>
+  <link rel="stylesheet" href="overlay.css" />
+</head>
+<body>
+
+  <!-- コマンドパレット -->
+  <div id="palette" class="layer" hidden>
+    <div class="pal-box">
+      <div class="pal-input-row">
+        <svg viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+        <input id="pal-input" type="text" spellcheck="false" autocomplete="off"
+          placeholder="コマンド・タブ・ブックマーク・履歴を検索 / 計算もできます" />
+      </div>
+      <div id="pal-list"></div>
+      <div class="pal-foot">
+        <span><kbd>↑↓</kbd> 選択</span><span><kbd>Enter</kbd> 実行</span>
+        <span><kbd>Ctrl</kbd>+<kbd>Enter</kbd> 新しいタブ</span>
+        <span class="sp"></span>
+        <span><kbd>&gt;</kbd>コマンド <kbd>@</kbd>タブ <kbd>*</kbd>ブックマーク <kbd>?</kbd>履歴</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- アドレスバーの候補 -->
+  <div id="suggest" hidden></div>
+
+  <!-- 入力・確認ダイアログ -->
+  <div id="prompt" class="layer" hidden>
+    <div class="dlg">
+      <h2 id="pr-title"></h2>
+      <p id="pr-label"></p>
+      <input id="pr-input" type="text" spellcheck="false" autocomplete="off" />
+      <div class="btns">
+        <button id="pr-cancel">キャンセル</button>
+        <button id="pr-ok" class="primary">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 右側パネル -->
+  <div id="panel" hidden>
+    <div class="panel-head">
+      <div id="panel-tabs"></div>
+      <button id="panel-close" title="閉じる (Esc)">
+        <svg viewBox="0 0 24 24"><path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6l5.6-5.6L5 6.4z"/></svg>
+      </button>
+    </div>
+    <div id="panel-body"></div>
+  </div>
+
+  <script src="bridge.js"></script>
+  <script src="overlay.js"></script>
+</body>
+</html>

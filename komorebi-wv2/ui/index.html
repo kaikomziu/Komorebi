@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'none'; img-src * data:; style-src 'self' 'unsafe-inline'; script-src 'self';" />
+  <title>Komorebi</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="layout-top">
+  <div id="app">
+
+    <!-- 縦タブ用サイドバー（横タブのときは非表示） -->
+    <aside id="sidebar">
+      <div id="side-head"></div>
+      <div id="side-body"></div>
+      <div id="side-foot">
+        <button id="side-new" class="side-btn" title="新しいタブ (Ctrl+T)">
+          <svg viewBox="0 0 24 24"><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></svg>
+          <span>新しいタブ</span>
+        </button>
+        <button id="side-palette" class="side-btn" title="コマンドパレット (Ctrl+K)">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+          <span>パレット</span>
+        </button>
+      </div>
+    </aside>
+
+    <div id="main">
+      <!-- 横タブ -->
+      <div id="tabstrip">
+        <div id="ws-slot-top"></div>
+        <div id="tabs-slot-top"></div>
+        <button id="new-tab-top" class="icon-btn" title="新しいタブ (Ctrl+T)">
+          <svg viewBox="0 0 24 24"><path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z"/></svg>
+        </button>
+        <div class="drag-space"></div>
+      </div>
+
+      <!-- ツールバー -->
+      <div id="toolbar">
+        <button id="side-toggle" class="icon-btn" title="サイドバーの開閉">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16"/></svg>
+        </button>
+        <button id="back" class="icon-btn" title="戻る (Alt+←)">
+          <svg viewBox="0 0 24 24"><path d="M15.7 18.3 9.4 12l6.3-6.3 1.4 1.4-4.9 4.9 4.9 4.9z"/></svg>
+        </button>
+        <button id="forward" class="icon-btn" title="進む (Alt+→)">
+          <svg viewBox="0 0 24 24"><path d="M8.3 5.7 14.6 12l-6.3 6.3-1.4-1.4 4.9-4.9-4.9-4.9z"/></svg>
+        </button>
+        <button id="reload" class="icon-btn" title="再読み込み (Ctrl+R)">
+          <svg viewBox="0 0 24 24"><path d="M12 6V3L8 7l4 4V8a4 4 0 1 1-4 4H6a6 6 0 1 0 6-6z"/></svg>
+        </button>
+
+        <div id="omnibox">
+          <span id="scheme-icon" class="scheme"></span>
+          <input id="address" type="text" spellcheck="false" autocomplete="off"
+            placeholder="検索 / URL（例: yt ねこ ・ gh electron ・ 計算も可）" />
+          <button id="btn-reader" class="icon-btn small" title="リーダーモード (F9)">
+            <svg viewBox="0 0 24 24"><path d="M13 12h7v1.5h-7zm0-2.5h7V11h-7zm0 5h7V16h-7zM21 4H3c-1.1 0-2 .9-2 2v13c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 15h-9V6h9v13z"/></svg>
+          </button>
+          <button id="btn-dark" class="icon-btn small" title="このサイトを強制ダークモード (Ctrl+Shift+D)">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 18V4a8 8 0 0 1 0 16z"/></svg>
+          </button>
+          <button id="star" class="icon-btn small star" title="ブックマーク (Ctrl+D)">
+            <svg viewBox="0 0 24 24"><path d="m12 17.3 6.2 3.7-1.6-7 5.4-4.7-7.1-.6L12 2 9.1 8.7l-7.1.6 5.4 4.7-1.6 7z"/></svg>
+          </button>
+        </div>
+
+        <div id="focus-chip" hidden title="クリックで集中モードを終了"></div>
+
+        <button id="btn-shield" class="icon-btn badge-host" title="広告・トラッカーブロック">
+          <svg viewBox="0 0 24 24"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3zm-1 14-4-4 1.4-1.4L11 13.2l5.6-5.6L18 9l-7 7z"/></svg>
+          <span id="shield-badge" class="badge" hidden></span>
+        </button>
+        <button id="btn-split" class="icon-btn" title="分割表示 (Alt+S)">
+          <svg viewBox="0 0 24 24"><path d="M3 4h8v16H3V4zm10 0h8v16h-8V4z"/></svg>
+        </button>
+        <button id="btn-dl" class="icon-btn badge-host" title="ダウンロード (Ctrl+J)">
+          <svg viewBox="0 0 24 24"><path d="M5 20h14v-2H5v2zM19 9h-4V3H9v6H5l7 7 7-7z"/></svg>
+          <span id="dl-badge" class="badge" hidden></span>
+        </button>
+        <button id="btn-notes" class="icon-btn" title="クイックメモ (Ctrl+Shift+N)">
+          <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 7V3.5L18.5 9H13zM8 13h8v2H8v-2zm0 4h8v2H8v-2z"/></svg>
+        </button>
+        <button id="btn-palette" class="icon-btn" title="コマンドパレット (Ctrl+K)">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 14 15.5l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+        </button>
+        <button id="menu" class="icon-btn" title="メニュー">
+          <svg viewBox="0 0 24 24"><path d="M12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm0 2a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm0 6a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/></svg>
+        </button>
+      </div>
+
+      <!-- ブックマークバー -->
+      <div id="bookmarks"></div>
+
+      <!-- ページ内検索 -->
+      <div id="findbar" hidden>
+        <input id="find-input" type="text" spellcheck="false" placeholder="ページ内を検索" />
+        <span id="find-count"></span>
+        <button id="find-prev" class="icon-btn small" title="前へ (Shift+Enter)">
+          <svg viewBox="0 0 24 24"><path d="m7.4 15.4 4.6-4.6 4.6 4.6 1.4-1.4-6-6-6 6z"/></svg>
+        </button>
+        <button id="find-next" class="icon-btn small" title="次へ (Enter)">
+          <svg viewBox="0 0 24 24"><path d="m7.4 8.6 4.6 4.6 4.6-4.6L18 10l-6 6-6-6z"/></svg>
+        </button>
+        <button id="find-close" class="icon-btn small" title="閉じる (Esc)">
+          <svg viewBox="0 0 24 24"><path d="m6.4 5 5.6 5.6L17.6 5 19 6.4 13.4 12l5.6 5.6-1.4 1.4-5.6-5.6L6.4 19 5 17.6l5.6-5.6L5 6.4z"/></svg>
+        </button>
+      </div>
+
+      <div id="progress"></div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+  <script src="bridge.js"></script>
+  <script src="renderer.js"></script>
+</body>
+</html>

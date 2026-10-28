@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <title>集中モード</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; min-height: 100vh; display: grid; place-items: center;
+      background: radial-gradient(1200px 600px at 50% 0%, #1f3a33, #101a16 70%);
+      color: #e8eaed; font-family: "Segoe UI", "Yu Gothic UI", Meiryo, system-ui, sans-serif;
+    }
+    .box { text-align: center; padding: 32px; max-width: 520px; }
+    .emoji { font-size: 54px; }
+    h1 { font-size: 24px; font-weight: 600; margin: 14px 0 6px; }
+    p { color: #aab3ab; line-height: 1.8; margin: 0; }
+    code { background: rgba(255,255,255,.1); padding: 2px 8px; border-radius: 6px; }
+    .time { font-size: 64px; font-weight: 200; margin: 22px 0 6px; color: #9fd48b; font-variant-numeric: tabular-nums; }
+    button {
+      margin-top: 22px; border: 1px solid rgba(255,255,255,.2); background: transparent; color: #aab3ab;
+      padding: 8px 18px; border-radius: 10px; cursor: pointer; font-family: inherit;
+    }
+    button:hover { color: #e8eaed; border-color: #e8eaed; }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <div class="emoji">🎯</div>
+    <h1>集中モード中です</h1>
+    <p><code id="host"></code> は、いまはお休みしましょう。</p>
+    <div class="time" id="time">--:--</div>
+    <p id="msg">あと少し。やるべきことに戻りましょう。</p>
+    <button id="stop">集中モードを終了して開く</button>
+  </div>
+  <script>
+    const q = new URLSearchParams(location.search);
+    const host = q.get('host') || '';
+    const until = Number(q.get('until')) || 0;
+    document.getElementById('host').textContent = host;
+
+    function tick() {
+      const left = until - Date.now();
+      if (left <= 0) {
+        document.getElementById('time').textContent = '00:00';
+        document.getElementById('msg').textContent = '集中モードは終わりました。おつかれさまでした！';
+        document.getElementById('stop').textContent = host + ' を開く';
+        return;
+      }
+      const m = Math.floor(left / 60000);
+      const s = Math.floor((left % 60000) / 1000);
+      document.getElementById('time').textContent = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    document.getElementById('stop').addEventListener('click', () => {
+      if (window.komorebiFocus) window.komorebiFocus.stop();
+      if (host) setTimeout(() => { location.href = 'https://' + host; }, 150);
+    });
+  </script>
+</body>
+</html>
